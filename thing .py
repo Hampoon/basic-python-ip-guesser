@@ -1,6 +1,7 @@
 #import pyping
 import os
 from faker import Faker #Module to generate IPv4 and IPv6 addresses 
+import time
 invalid = 0
 valid = 0
 ex = Faker()
@@ -13,8 +14,8 @@ while True:
 #This part pings the IP
     ip_to_check = (ip)
 
-    testping = os.system('ping -n 2 {}'.format(ip_to_check))
-    print(testping) #for testing
+    testping = os.system(f'ping -c 1 -t 1 {ip_to_check}')
+    # print(testping) #for testing
     if testping == 0:
         print('Good IP found, ipv4 is ' + ip + ' and ipv6 is ' + ip2)
         print(testping)
@@ -24,3 +25,5 @@ while True:
         print('Bad IP found, ipv4 is ' + ip + ' and ipv6 is ' + ip2)
         invalid = invalid+1
         print(invalid)
+    print(f"good ips: {valid}, bad ips: {invalid}")
+    time.sleep(0.1)
